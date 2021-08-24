@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components";
-import NerkoOne from "./fonts/nerko-one-v5-latin-regular.woff";
-import Sansita from "./fonts/sansita-v5-latin-regular.woff";
-import Pacifico from "./fonts/pacifico-v17-latin-regular.woff";
+import NerkoOne from "../fonts/nerko-one-v5-latin-regular.woff";
+import Sansita from "../fonts/sansita-v5-latin-regular.woff";
+import Pacifico from "../fonts/pacifico-v17-latin-regular.woff";
 
 const GlobalCSS = createGlobalStyle`
   @font-face {

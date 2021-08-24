@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Forecast from "./Forecast";
 import useFetch from "./useFetch";
 import styled, { css } from "styled-components";
+import * as React from "react";
+import breakpoints from "./styles/breakpoints";
 
 const Button = styled.button`
   background: #0b5ed7;
@@ -42,14 +44,19 @@ const WeatherContainer = styled.div`
 const MainDetails = styled.div`
   text-align: center;
   display: flex;
+  flex-direction: column;
   justify-content: space-around;
   padding: 10px 0 40px;
-  width: 400px;
   margin: 0 auto;
   align-items: center;
+  @media only screen and ${breakpoints.device.sm} {
+    flex-direction: row;
+    width: 400px;
+  }
 `;
 
 const DetailCard = styled.div`
+  width: 80%;
   display: flex;
   justify-content: space-around;
   align-content: center;
@@ -57,27 +64,46 @@ const DetailCard = styled.div`
   border-radius: 20px;
   box-shadow: 0.6rem 0.4rem 1rem rgba(38, 34, 57, 0.37);
   background: #fff;
+  @media only screen and ${breakpoints.device.sm} {
+    width: 250px;
+  }
 `;
 
 const DetailsContainer = styled.div`
   display: grid;
-  margin: 0 10%;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 1em;
-  column-gap: 2em;
+  margin: 0 auto;
+  grid-template-columns: 1fr;
+  // grid-gap: 1em;
+  row-gap: 1.7em;
+  justify-items: center;
+  @media only screen and ${breakpoints.device.lg} {
+    grid-template-columns: repeat(3, 1fr);
+  }
+`;
+
+const Group = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 300px;
+  width: 100%;
+  @media only screen and ${breakpoints.device.sm} {
+    flex-direction: row;
+    justify-content: space-evenly;
+    height: 100%;
+  }
+  @media only screen and ${breakpoints.device.lg} {
+    flex-direction: column;
+    justify-content: space-between;
+    height: 300px;
+  }
 `;
 
 const span = {
   display: "block",
   fontSize: "1.8em",
   fontWeight: "bold",
-};
-
-const group = {
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "space-between",
-  height: "300px",
 };
 
 function degToCompass(num) {
@@ -108,6 +134,8 @@ const Current = () => {
 
   const { weather, isPending, error } = useFetch(apiCurrent);
 
+  const fieldRef = useRef();
+
   const newCity = (e) => {
     if (e.keyCode === 13) {
       // handleSubmit();
@@ -134,10 +162,19 @@ const Current = () => {
       : setUnit({ value: "imperial", temp: "F", speed: "mph" });
   };
 
-  const showComponent = () => {
+  const showComponent = (id) => {
     if (button === "Show Forecast for the following 5 days") {
       setButton("Hide Forecast");
       setVisibility(true);
+      console.log(fieldRef.current);
+      if (fieldRef.current) {
+        fieldRef.current.scrollIntoView({
+          behavior: "smooth",
+          block: "nearest",
+        });
+      }
+      // let domElement = document.getElementById(id);
+      // domElement.scrollIntoView();
     } else {
       setButton("Show Forecast for the following 5 days");
       setVisibility(false);
@@ -194,9 +231,8 @@ const Current = () => {
                 />
               </div>
             </MainDetails>
-
             <DetailsContainer>
-              <div style={group}>
+              <Group>
                 <DetailCard>
                   <img src="/images/humidity.png" alt="Humidity Logo" />
                   <p>
@@ -210,8 +246,8 @@ const Current = () => {
                     <span style={span}>{weather.visibility / 1000} km</span>
                   </p>
                 </DetailCard>
-              </div>
-              <div style={group}>
+              </Group>
+              <Group>
                 <DetailCard>
                   <img src="/images/sunrise.png" alt="Sunrise Logo" />
                   <p>
@@ -240,8 +276,8 @@ const Current = () => {
                     </span>
                   </p>
                 </DetailCard>
-              </div>
-              <div style={group}>
+              </Group>
+              <Group>
                 <DetailCard>
                   <img src="/images/wind-speed.png" alt="Wind Speed Logo" />
                   <p>
@@ -262,17 +298,23 @@ const Current = () => {
                     <span style={span}>{degToCompass(weather.wind.deg)}</span>
                   </p>
                 </DetailCard>
-              </div>
+              </Group>
             </DetailsContainer>
           </WeatherContainer>
           <Button
             primary
-            onClick={showComponent}
+            onClick={() => {
+              showComponent("forecast");
+            }}
             style={{ display: "block", margin: "25px auto" }}
           >
             {button}
           </Button>
-          {visibility && <Forecast city={city} unit={unit} appid={appid} />}
+          {visibility && (
+            <div id="forecast" ref={fieldRef}>
+              <Forecast city={city} unit={unit} appid={appid} />
+            </div>
+          )}
           <div>
             Icons made by{" "}
             <a href="https://www.freepik.com" title="Freepik">

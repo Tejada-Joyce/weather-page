@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 // import "./index.css";
 import App from "./App";
-import GlobalCSS from "./GlobalCSS";
+import GlobalCSS from "./styles/GlobalCSS.js";
 
 // import reportWebVitals from './reportWebVitals';
 
