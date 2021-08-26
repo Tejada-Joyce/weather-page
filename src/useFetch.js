@@ -12,7 +12,7 @@ const useFetch = (url) => {
     fetch(url, { signal: abortCont.signal })
       .then((res) => {
         if (!res.ok) {
-          throw Error("could not fetch the weather for that resource");
+          throw Error("Please review the spelling of the city and try again.");
         }
         return res.json();
       })

@@ -2,6 +2,7 @@ import { createGlobalStyle } from "styled-components";
 import NerkoOne from "../fonts/nerko-one-v5-latin-regular.woff";
 import Sansita from "../fonts/sansita-v5-latin-regular.woff";
 import Pacifico from "../fonts/pacifico-v17-latin-regular.woff";
+import breakpoints from "./breakpoints";
 
 const GlobalCSS = createGlobalStyle`
   @font-face {
@@ -25,7 +26,16 @@ const GlobalCSS = createGlobalStyle`
 
   h1 {
     font-family: 'NerkoOne', cursive;
-    font-size: 5rem;
+    font-size: 4.4rem;
+
+    @media only screen and ${breakpoints.device.sm} {
+      font-size: 5rem;      
+    }
+  }
+
+  h2 {
+    font-family: 'NerkoOne', cursive;
+    font-size: 4rem;
   }
 `;
 

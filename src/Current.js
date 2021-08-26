@@ -203,7 +203,7 @@ const Current = () => {
           </Button>
           <WeatherContainer>
             <h1>{weather.name + ", " + weather.sys.country}</h1>
-            <p>
+            <p style={{ fontSize: 30 }}>
               {convertUTCTime(weather.dt).toLocaleString("en-US", {
                 weekday: "long",
               }) +
@@ -214,7 +214,7 @@ const Current = () => {
             </p>
             <MainDetails>
               <div>
-                <p style={{ fontSize: 70 }}>
+                <p style={{ fontSize: 70, marginBottom: "0.5rem" }}>
                   {Math.round(weather.main.temp) + "\xB0" + unit.temp}
                 </p>
                 <p>
@@ -223,12 +223,12 @@ const Current = () => {
                 </p>
               </div>
               <div>
-                <p>{weather.weather[0].description}</p>
                 <img
                   src={`https://openweathermap.org/img/w/${weather.weather[0].icon}.png`}
                   alt="weather icon"
-                  style={{ width: "70%" }}
+                  style={{ width: "100px" }}
                 />
+                <p>{weather.weather[0].description}</p>
               </div>
             </MainDetails>
             <DetailsContainer>
@@ -243,7 +243,12 @@ const Current = () => {
                   <img src="/images/visibility.png" alt="Visibility Logo" />
                   <p>
                     Visibility:{" "}
-                    <span style={span}>{weather.visibility / 1000} km</span>
+                    <span style={span}>
+                      {Math.round(
+                        (weather.visibility / 1000 + Number.EPSILON) * 100
+                      ) / 100}{" "}
+                      km
+                    </span>
                   </p>
                 </DetailCard>
               </Group>
