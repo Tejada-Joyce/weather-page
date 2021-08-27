@@ -64,6 +64,7 @@ const DetailCard = styled.div`
   border-radius: 20px;
   box-shadow: 0.6rem 0.4rem 1rem rgba(38, 34, 57, 0.37);
   background: #fff;
+  margin-bottom: 35px;
   @media only screen and ${breakpoints.device.sm} {
     width: 250px;
   }
@@ -73,8 +74,6 @@ const DetailsContainer = styled.div`
   display: grid;
   margin: 0 auto;
   grid-template-columns: 1fr;
-  // grid-gap: 1em;
-  row-gap: 1.7em;
   justify-items: center;
   @media only screen and ${breakpoints.device.lg} {
     grid-template-columns: repeat(3, 1fr);
@@ -86,11 +85,11 @@ const Group = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  height: 300px;
   width: 100%;
   @media only screen and ${breakpoints.device.sm} {
     flex-direction: row;
     justify-content: space-evenly;
+    height: 300px;
     height: 100%;
   }
   @media only screen and ${breakpoints.device.lg} {
@@ -104,6 +103,12 @@ const span = {
   display: "block",
   fontSize: "1.8em",
   fontWeight: "bold",
+};
+
+const logoImage = {
+  width: "35%",
+  /* min-width: 100px; */
+  height: "100%",
 };
 
 function degToCompass(num) {
@@ -234,13 +239,21 @@ const Current = () => {
             <DetailsContainer>
               <Group>
                 <DetailCard>
-                  <img src="/images/humidity.png" alt="Humidity Logo" />
+                  <img
+                    src="/images/humidity.png"
+                    alt="Humidity Logo"
+                    style={logoImage}
+                  />
                   <p>
                     Humidity: <span style={span}>{weather.main.humidity}%</span>
                   </p>
                 </DetailCard>
                 <DetailCard>
-                  <img src="/images/visibility.png" alt="Visibility Logo" />
+                  <img
+                    src="/images/visibility.png"
+                    alt="Visibility Logo"
+                    style={logoImage}
+                  />
                   <p>
                     Visibility:{" "}
                     <span style={span}>
@@ -254,7 +267,11 @@ const Current = () => {
               </Group>
               <Group>
                 <DetailCard>
-                  <img src="/images/sunrise.png" alt="Sunrise Logo" />
+                  <img
+                    src="/images/sunrise.png"
+                    alt="Sunrise Logo"
+                    style={logoImage}
+                  />
                   <p>
                     Sunrise:{" "}
                     <span style={span}>
@@ -268,7 +285,11 @@ const Current = () => {
                   </p>
                 </DetailCard>
                 <DetailCard>
-                  <img src="/images/sunset.png" alt="Sunset Logo" />
+                  <img
+                    src="/images/sunset.png"
+                    alt="Sunset Logo"
+                    style={logoImage}
+                  />
                   <p>
                     Sunset:{" "}
                     <span style={span}>
@@ -284,7 +305,11 @@ const Current = () => {
               </Group>
               <Group>
                 <DetailCard>
-                  <img src="/images/wind-speed.png" alt="Wind Speed Logo" />
+                  <img
+                    src="/images/wind-speed.png"
+                    alt="Wind Speed Logo"
+                    style={logoImage}
+                  />
                   <p>
                     W. Speed:{" "}
                     <span style={span}>
@@ -296,6 +321,8 @@ const Current = () => {
                   <img
                     src="/images/wind-direction.png"
                     alt="Wind Direction Logo"
+                    style={logoImage}
+
                     // style={{ width: "30%", height: "100%" }}
                   />
                   <p>
