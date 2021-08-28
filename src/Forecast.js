@@ -43,6 +43,19 @@ const CardCont = styled.div`
   }
 `;
 
+const ForecastCont = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  // @media only screen and ${breakpoints.device.sm} {
+  //   max-width: 550px;
+  // }
+  // @media only screen and ${breakpoints.device.lg} {
+  //   max-width: 100%;
+  // }
+`;
+
 const WeatherCard = ({ city, unit, appid }) => {
   var weekday = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -60,7 +73,7 @@ const WeatherCard = ({ city, unit, appid }) => {
         behavior: "smooth",
       });
     }
-  }, [weather]);
+  }, [weather && city]);
 
   if (weather != null && city != null) {
     let data = weather.list.filter((item) => item.dt_txt.includes("15:00:00"));
@@ -96,15 +109,7 @@ const WeatherCard = ({ city, unit, appid }) => {
         <p style={{ textAlign: "center" }}>
           {weather.city.name + ", " + weather.city.country}
         </p>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            flexWrap: "wrap",
-          }}
-        >
-          {card}
-        </div>
+        <ForecastCont>{card}</ForecastCont>
       </div>
     );
   } else {

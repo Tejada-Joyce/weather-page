@@ -89,7 +89,6 @@ const Group = styled.div`
   @media only screen and ${breakpoints.device.sm} {
     flex-direction: row;
     justify-content: space-evenly;
-    height: 300px;
     height: 100%;
   }
   @media only screen and ${breakpoints.device.lg} {
@@ -145,6 +144,8 @@ const Current = () => {
     if (e.keyCode === 13) {
       // handleSubmit();
       setCity(e.target.value);
+      setVisibility(false);
+      setButton("Show Forecast for the following 5 days");
     }
   };
 
@@ -324,7 +325,7 @@ const Current = () => {
             {button}
           </Button>
           {visibility && <Forecast city={city} unit={unit} appid={appid} />}
-          <div>
+          <div style={{ margin: "1em" }}>
             Icons made by{" "}
             <a href="https://www.freepik.com" title="Freepik">
               Freepik

@@ -22,6 +22,8 @@ const GlobalCSS = createGlobalStyle`
 
   body {
     font-family: "Sansita", sans-serif;
+    max-width: 1530px;
+    margin: 0 auto;
   }
 
   h1 {
