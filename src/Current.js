@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import Forecast from "./Forecast";
 import useFetch from "./useFetch";
 import styled, { css } from "styled-components";
@@ -59,7 +59,7 @@ const DetailCard = styled.div`
   width: 80%;
   display: flex;
   justify-content: space-around;
-  align-content: center;
+  align-items: center;
   padding: 1.6em 0.6em;
   border-radius: 20px;
   box-shadow: 0.6rem 0.4rem 1rem rgba(38, 34, 57, 0.37);
@@ -140,8 +140,6 @@ const Current = () => {
   let apiCurrent = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${unit.value}&appid=${appid}`;
 
   const { weather, isPending, error } = useFetch(apiCurrent);
-
-  const fieldRef = useRef(null);
 
   const newCity = (e) => {
     if (e.keyCode === 13) {
@@ -325,12 +323,8 @@ const Current = () => {
           >
             {button}
           </Button>
-          {visibility && (
-            <div id="forecast">
-              <Forecast city={city} unit={unit} appid={appid} />
-            </div>
-          )}
-          <div ref={fieldRef}>
+          {visibility && <Forecast city={city} unit={unit} appid={appid} />}
+          <div>
             Icons made by{" "}
             <a href="https://www.freepik.com" title="Freepik">
               Freepik

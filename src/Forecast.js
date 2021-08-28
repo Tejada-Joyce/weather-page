@@ -55,11 +55,12 @@ const WeatherCard = ({ city, unit, appid }) => {
   useEffect(() => {
     if (ref.current) {
       window.scrollTo({
-        top: document.documentElement.scrollHeight,
+        // top: document.documentElement.scrollHeight,
+        top: ref.current.offsetTop,
         behavior: "smooth",
       });
     }
-  }, [ref]);
+  }, [weather]);
 
   if (weather != null && city != null) {
     let data = weather.list.filter((item) => item.dt_txt.includes("15:00:00"));
@@ -108,7 +109,7 @@ const WeatherCard = ({ city, unit, appid }) => {
     );
   } else {
     return (
-      <div ref={ref}>
+      <div>
         {isPending && <div>Loading...</div>}
         {error && <div>{error}</div>}
       </div>

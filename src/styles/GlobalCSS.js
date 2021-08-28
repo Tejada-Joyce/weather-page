@@ -27,6 +27,7 @@ const GlobalCSS = createGlobalStyle`
   h1 {
     font-family: 'NerkoOne', cursive;
     font-size: 4.4rem;
+    word-break: break-word;
 
     @media only screen and ${breakpoints.device.sm} {
       font-size: 5rem;      
