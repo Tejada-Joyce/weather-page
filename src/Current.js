@@ -99,16 +99,18 @@ const Group = styled.div`
   }
 `;
 
+const LogoImage = styled.img`
+  width: 75px;
+  height: 100%;
+  @media only screen and ${breakpoints.device.sm} {
+    width: 35%;
+  }
+`;
+
 const span = {
   display: "block",
   fontSize: "1.8em",
   fontWeight: "bold",
-};
-
-const logoImage = {
-  width: "35%",
-  /* min-width: 100px; */
-  height: "100%",
 };
 
 function degToCompass(num) {
@@ -139,7 +141,7 @@ const Current = () => {
 
   const { weather, isPending, error } = useFetch(apiCurrent);
 
-  const fieldRef = useRef();
+  const fieldRef = useRef(null);
 
   const newCity = (e) => {
     if (e.keyCode === 13) {
@@ -167,19 +169,10 @@ const Current = () => {
       : setUnit({ value: "imperial", temp: "F", speed: "mph" });
   };
 
-  const showComponent = (id) => {
+  const showComponent = () => {
     if (button === "Show Forecast for the following 5 days") {
       setButton("Hide Forecast");
       setVisibility(true);
-      console.log(fieldRef.current);
-      if (fieldRef.current) {
-        fieldRef.current.scrollIntoView({
-          behavior: "smooth",
-          block: "nearest",
-        });
-      }
-      // let domElement = document.getElementById(id);
-      // domElement.scrollIntoView();
     } else {
       setButton("Show Forecast for the following 5 days");
       setVisibility(false);
@@ -207,6 +200,13 @@ const Current = () => {
             Change Units
           </Button>
           <WeatherContainer>
+            {/* <Button
+              primary
+              onClick={changeUnit}
+              style={{ float: "right", display: "block" }}
+            >
+              Change Units
+            </Button> */}
             <h1>{weather.name + ", " + weather.sys.country}</h1>
             <p style={{ fontSize: 30 }}>
               {convertUTCTime(weather.dt).toLocaleString("en-US", {
@@ -239,20 +239,15 @@ const Current = () => {
             <DetailsContainer>
               <Group>
                 <DetailCard>
-                  <img
-                    src="/images/humidity.png"
-                    alt="Humidity Logo"
-                    style={logoImage}
-                  />
+                  <LogoImage src="/images/humidity.png" alt="Humidity Logo" />
                   <p>
                     Humidity: <span style={span}>{weather.main.humidity}%</span>
                   </p>
                 </DetailCard>
                 <DetailCard>
-                  <img
+                  <LogoImage
                     src="/images/visibility.png"
                     alt="Visibility Logo"
-                    style={logoImage}
                   />
                   <p>
                     Visibility:{" "}
@@ -267,11 +262,7 @@ const Current = () => {
               </Group>
               <Group>
                 <DetailCard>
-                  <img
-                    src="/images/sunrise.png"
-                    alt="Sunrise Logo"
-                    style={logoImage}
-                  />
+                  <LogoImage src="/images/sunrise.png" alt="Sunrise Logo" />
                   <p>
                     Sunrise:{" "}
                     <span style={span}>
@@ -285,11 +276,7 @@ const Current = () => {
                   </p>
                 </DetailCard>
                 <DetailCard>
-                  <img
-                    src="/images/sunset.png"
-                    alt="Sunset Logo"
-                    style={logoImage}
-                  />
+                  <LogoImage src="/images/sunset.png" alt="Sunset Logo" />
                   <p>
                     Sunset:{" "}
                     <span style={span}>
@@ -305,10 +292,9 @@ const Current = () => {
               </Group>
               <Group>
                 <DetailCard>
-                  <img
+                  <LogoImage
                     src="/images/wind-speed.png"
                     alt="Wind Speed Logo"
-                    style={logoImage}
                   />
                   <p>
                     W. Speed:{" "}
@@ -318,12 +304,9 @@ const Current = () => {
                   </p>
                 </DetailCard>
                 <DetailCard>
-                  <img
+                  <LogoImage
                     src="/images/wind-direction.png"
                     alt="Wind Direction Logo"
-                    style={logoImage}
-
-                    // style={{ width: "30%", height: "100%" }}
                   />
                   <p>
                     W. Direction:{" "}
@@ -336,18 +319,18 @@ const Current = () => {
           <Button
             primary
             onClick={() => {
-              showComponent("forecast");
+              showComponent();
             }}
             style={{ display: "block", margin: "25px auto" }}
           >
             {button}
           </Button>
           {visibility && (
-            <div id="forecast" ref={fieldRef}>
+            <div id="forecast">
               <Forecast city={city} unit={unit} appid={appid} />
             </div>
           )}
-          <div>
+          <div ref={fieldRef}>
             Icons made by{" "}
             <a href="https://www.freepik.com" title="Freepik">
               Freepik

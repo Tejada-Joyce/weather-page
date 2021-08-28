@@ -1,8 +1,9 @@
 import { Card } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import useFetch from "./useFetch";
 import breakpoints from "./styles/breakpoints";
+import { useRef, useEffect } from "react";
 
 const h1Style = {
   padding: 10,
@@ -49,6 +50,17 @@ const WeatherCard = ({ city, unit, appid }) => {
 
   const { weather, isPending, error } = useFetch(apiForecast);
 
+  const ref = useRef(null);
+
+  useEffect(() => {
+    if (ref.current) {
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: "smooth",
+      });
+    }
+  }, [ref]);
+
   if (weather != null && city != null) {
     let data = weather.list.filter((item) => item.dt_txt.includes("15:00:00"));
     let card = data.map((item, i) => {
@@ -70,6 +82,7 @@ const WeatherCard = ({ city, unit, appid }) => {
               style={{ width: "auto" }}
               src={`https://openweathermap.org/img/w/${item.weather[0].icon}.png`}
             />
+
             <Card.Text style={{ textAlign: "center" }}>
               {item.weather[0].description}
             </Card.Text>
@@ -78,7 +91,7 @@ const WeatherCard = ({ city, unit, appid }) => {
       );
     });
     return (
-      <div>
+      <div ref={ref}>
         <p style={{ textAlign: "center" }}>
           {weather.city.name + ", " + weather.city.country}
         </p>
@@ -95,7 +108,7 @@ const WeatherCard = ({ city, unit, appid }) => {
     );
   } else {
     return (
-      <div>
+      <div ref={ref}>
         {isPending && <div>Loading...</div>}
         {error && <div>{error}</div>}
       </div>
