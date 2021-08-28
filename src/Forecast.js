@@ -65,6 +65,8 @@ const WeatherCard = ({ city, unit, appid }) => {
 
   const ref = useRef(null);
 
+  const dep = weather && city;
+
   useEffect(() => {
     if (ref.current) {
       window.scrollTo({
@@ -73,7 +75,7 @@ const WeatherCard = ({ city, unit, appid }) => {
         behavior: "smooth",
       });
     }
-  }, [weather && city]);
+  }, [dep]);
 
   if (weather != null && city != null) {
     let data = weather.list.filter((item) => item.dt_txt.includes("15:00:00"));
