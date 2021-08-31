@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.js": "/weather-app/static/js/main.e4a1c036.chunk.js",
+    "main.js.map": "/weather-app/static/js/main.e4a1c036.chunk.js.map",
+    "runtime-main.js": "/weather-app/static/js/runtime-main.49547b8f.js",
+    "runtime-main.js.map": "/weather-app/static/js/runtime-main.49547b8f.js.map",
+    "static/css/2.818011ed.chunk.css": "/weather-app/static/css/2.818011ed.chunk.css",
+    "static/js/2.77fde2e2.chunk.js": "/weather-app/static/js/2.77fde2e2.chunk.js",
+    "static/js/2.77fde2e2.chunk.js.map": "/weather-app/static/js/2.77fde2e2.chunk.js.map",
+    "index.html": "/weather-app/index.html",
+    "static/css/2.818011ed.chunk.css.map": "/weather-app/static/css/2.818011ed.chunk.css.map",
+    "static/js/2.77fde2e2.chunk.js.LICENSE.txt": "/weather-app/static/js/2.77fde2e2.chunk.js.LICENSE.txt",
+    "static/media/nerko-one-v5-latin-regular.dbcf4b91.woff": "/weather-app/static/media/nerko-one-v5-latin-regular.dbcf4b91.woff",
+    "static/media/pacifico-v17-latin-regular.07b8ce64.woff": "/weather-app/static/media/pacifico-v17-latin-regular.07b8ce64.woff",
+    "static/media/sansita-v5-latin-regular.d73b4ae2.woff": "/weather-app/static/media/sansita-v5-latin-regular.d73b4ae2.woff"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.49547b8f.js",
+    "static/css/2.818011ed.chunk.css",
+    "static/js/2.77fde2e2.chunk.js",
+    "static/js/main.e4a1c036.chunk.js"
+  ]
+}
