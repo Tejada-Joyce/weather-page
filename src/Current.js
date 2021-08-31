@@ -5,6 +5,13 @@ import styled, { css } from "styled-components";
 import * as React from "react";
 import breakpoints from "./styles/breakpoints";
 import moment from "moment";
+// import images from "constants";
+import humidity from "./images/humidity.png";
+import visibility from "./images/visibility.png";
+import sunrise from "./images/sunrise.png";
+import sunset from "./images/sunset.png";
+import windSpeed from "./images/wind-speed.png";
+import windDirection from "./images/wind-direction.png";
 
 const Button = styled.button`
   background: #f4b942;
@@ -23,7 +30,7 @@ const Button = styled.button`
     props.primary &&
     css`
       margin: 0 auto;
-      border-radius: 10px;
+      border-radius: 6px;
       display: block;
       width: 50%;
 
@@ -246,16 +253,13 @@ const Current = () => {
             <DetailsContainer>
               <Group>
                 <DetailCard>
-                  <LogoImage src="/images/humidity.png" alt="Humidity Logo" />
+                  <LogoImage src={humidity} alt="Humidity Logo" />
                   <p>
                     Humidity: <span style={span}>{weather.main.humidity}%</span>
                   </p>
                 </DetailCard>
                 <DetailCard>
-                  <LogoImage
-                    src="/images/visibility.png"
-                    alt="Visibility Logo"
-                  />
+                  <LogoImage src={visibility} alt="Visibility Logo" />
                   <p>
                     Visibility:{" "}
                     <span style={span}>
@@ -269,7 +273,7 @@ const Current = () => {
               </Group>
               <Group>
                 <DetailCard>
-                  <LogoImage src="./images/sunrise.png" alt="Sunrise Logo" />
+                  <LogoImage src={sunrise} alt="Sunrise Logo" />
                   <p>
                     Sunrise:{" "}
                     <span style={span}>
@@ -282,7 +286,7 @@ const Current = () => {
                   </p>
                 </DetailCard>
                 <DetailCard>
-                  <LogoImage src="./images/sunset.png" alt="Sunset Logo" />
+                  <LogoImage src={sunset} alt="Sunset Logo" />
                   <p>
                     Sunset:{" "}
                     <span style={span}>
@@ -297,10 +301,7 @@ const Current = () => {
               </Group>
               <Group>
                 <DetailCard>
-                  <LogoImage
-                    src="/images/wind-speed.png"
-                    alt="Wind Speed Logo"
-                  />
+                  <LogoImage src={windSpeed} alt="Wind Speed Logo" />
                   <p>
                     W. Speed:{" "}
                     <span style={span}>
@@ -309,10 +310,7 @@ const Current = () => {
                   </p>
                 </DetailCard>
                 <DetailCard>
-                  <LogoImage
-                    src="/images/wind-direction.png"
-                    alt="Wind Direction Logo"
-                  />
+                  <LogoImage src={windDirection} alt="Wind Direction Logo" />
                   <p>
                     W. Direction:{" "}
                     <span style={span}>{degToCompass(weather.wind.deg)}</span>
