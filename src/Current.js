@@ -7,7 +7,7 @@ import breakpoints from "./styles/breakpoints";
 import moment from "moment";
 // import images from "constants";
 import humidity from "./images/humidity.png";
-import visibility from "./images/visibility.png";
+import visib from "./images/visibility.png";
 import sunrise from "./images/sunrise.png";
 import sunset from "./images/sunset.png";
 import windSpeed from "./images/wind-speed.png";
@@ -259,7 +259,7 @@ const Current = () => {
                   </p>
                 </DetailCard>
                 <DetailCard>
-                  <LogoImage src={visibility} alt="Visibility Logo" />
+                  <LogoImage src={visib} alt="Visibility Logo" />
                   <p>
                     Visibility:{" "}
                     <span style={span}>
