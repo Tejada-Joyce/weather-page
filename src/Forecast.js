@@ -48,12 +48,6 @@ const ForecastCont = styled.div`
   justify-content: center;
   flex-wrap: wrap;
   margin: 0 auto;
-  // @media only screen and ${breakpoints.device.sm} {
-  //   max-width: 550px;
-  // }
-  // @media only screen and ${breakpoints.device.lg} {
-  //   max-width: 100%;
-  // }
 `;
 
 const WeatherCard = ({ city, unit, appid }) => {
