@@ -4,22 +4,33 @@ import useFetch from "./useFetch";
 import styled, { css } from "styled-components";
 import * as React from "react";
 import breakpoints from "./styles/breakpoints";
+import moment from "moment";
 
 const Button = styled.button`
-  background: #0b5ed7;
+  background: #f4b942;
+  border: 2px solid #f4b942;
   border-radius: 4px;
-  border: 2px solid #0a58ca;
   color: white;
-  margin: 1em;
+  margin-left: 1em;
   padding: 0.5em;
   text-align: center;
+
+  @media only screen and ${breakpoints.device.sm} {
+    margin-left: 0;
+  }
 
   ${(props) =>
     props.primary &&
     css`
-      background: #f4b942;
-      border: 2px solid #f4b942;
-      color: white;
+      margin: 0 auto;
+      border-radius: 10px;
+      display: block;
+      width: 50%;
+
+      @media only screen and ${breakpoints.device.sm} {
+        margin: 0 auto;
+        width: 20%;
+      }
     `}
 `;
 
@@ -36,7 +47,7 @@ const WeatherContainer = styled.div`
   background: #eff2f1;
   border: 0.5px solid #eff2f1;
   border-radius: 20px;
-  margin: auto 10%;
+  margin: 10px 10%;
   padding: 40px 0;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 `;
@@ -118,8 +129,20 @@ function degToCompass(num) {
   return arr[val];
 }
 
-function convertUTCTime(time) {
-  let newTime = new Date(time * 1000);
+function convertUTCTime(time, timezone, date) {
+  let newTime;
+  if (date) {
+    newTime = moment
+      .unix(time)
+      .utcOffset(timezone / 3600)
+      .format("dddd, hh:mm A");
+  } else {
+    newTime = moment
+      .unix(time)
+      .utcOffset(timezone / 3600)
+      .format("hh:mm A");
+  }
+
   return newTime;
 }
 
@@ -134,33 +157,29 @@ const Current = () => {
     "Show Forecast for the following 5 days"
   );
   const [visibility, setVisibility] = useState(false);
+  const [value, setValue] = useState("");
   const appid = "ae51ee811e4a15bbb35b5a146bb03482";
 
   let apiCurrent = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${unit.value}&appid=${appid}`;
 
   const { weather, isPending, error } = useFetch(apiCurrent);
 
-  const newCity = (e) => {
-    if (e.keyCode === 13) {
-      // handleSubmit();
-      setCity(e.target.value);
-      setVisibility(false);
-      setButton("Show Forecast for the following 5 days");
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setCity(value);
   };
 
-  // const handleChange = (e) => {
-  //   // setCity(e.target.value);
-  //   handleSubmit();
+  const handleChange = (e) => {
+    setValue(e.target.value);
+    setVisibility(false);
+    setButton("Show Forecast for the following 5 days");
+  };
 
-  // console.log(e);
-  // };
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   console.log(e.target.value);
-  //   setCity(e.target.value);
-  // };
+  const handleKeyPress = (e) => {
+    if (e.keyCode === 13) {
+      handleSubmit(e);
+    }
+  };
 
   const changeUnit = () => {
     unit.value === "imperial"
@@ -184,38 +203,27 @@ const Current = () => {
       {error && <div>{error}</div>}
       {weather && (
         <div>
-          {/* <form onSubmit={handleSubmit}> */}
-          <Input
-            type="text"
-            required
-            placeholder="Search City"
-            // onChange={handleChange}
-            onKeyDown={newCity}
-          />
-          {/* <button type="submit">Search</button> */}
-          {/* </form> */}
+          <form onSubmit={handleSubmit}>
+            <Input
+              type="text"
+              required
+              placeholder="City Name"
+              value={value}
+              onChange={handleChange}
+              onKeyDown={handleKeyPress}
+            />
+            <Button type="submit">Search</Button>
+          </form>
 
-          <Button primary onClick={changeUnit}>
-            Change Units
-          </Button>
           <WeatherContainer>
-            {/* <Button
-              primary
-              onClick={changeUnit}
-              style={{ float: "right", display: "block" }}
-            >
-              Change Units
-            </Button> */}
             <h1>{weather.name + ", " + weather.sys.country}</h1>
             <p style={{ fontSize: 30 }}>
-              {convertUTCTime(weather.dt).toLocaleString("en-US", {
-                weekday: "long",
-              }) +
-                ", " +
-                convertUTCTime(weather.dt).toLocaleString("en-US", {
-                  timeStyle: "short",
-                })}
+              {" "}
+              {convertUTCTime(weather.dt, weather.timezone, true)}
             </p>
+            <Button primary onClick={changeUnit}>
+              Change Units
+            </Button>
             <MainDetails>
               <div>
                 <p style={{ fontSize: 70, marginBottom: "0.5rem" }}>
@@ -261,29 +269,27 @@ const Current = () => {
               </Group>
               <Group>
                 <DetailCard>
-                  <LogoImage src="/images/sunrise.png" alt="Sunrise Logo" />
+                  <LogoImage src="./images/sunrise.png" alt="Sunrise Logo" />
                   <p>
                     Sunrise:{" "}
                     <span style={span}>
-                      {convertUTCTime(weather.sys.sunrise).toLocaleString(
-                        "en-US",
-                        {
-                          timeStyle: "short",
-                        }
+                      {convertUTCTime(
+                        weather.sys.sunrise,
+                        weather.timezone,
+                        false
                       )}
                     </span>
                   </p>
                 </DetailCard>
                 <DetailCard>
-                  <LogoImage src="/images/sunset.png" alt="Sunset Logo" />
+                  <LogoImage src="./images/sunset.png" alt="Sunset Logo" />
                   <p>
                     Sunset:{" "}
                     <span style={span}>
-                      {convertUTCTime(weather.sys.sunset).toLocaleString(
-                        "en-US",
-                        {
-                          timeStyle: "short",
-                        }
+                      {convertUTCTime(
+                        weather.sys.sunset,
+                        weather.timezone,
+                        false
                       )}
                     </span>
                   </p>
@@ -316,7 +322,6 @@ const Current = () => {
             </DetailsContainer>
           </WeatherContainer>
           <Button
-            primary
             onClick={() => {
               showComponent();
             }}
